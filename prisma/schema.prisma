@@ -21,3 +21,10 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Donation {
+  id        String   @id @default(uuid())
+  amount    Float    // Amount donated
+  email     String   // Email for tracking
+  name      String   // Name of the donor
+  createdAt DateTime @default(now())
+}
