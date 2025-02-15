@@ -110,6 +110,13 @@ export default function Home() {
               className="p-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
+            onClick={() => router.push("/register")}
+            className="mt-4 text-sm text-blue-400 hover:underline"
+          >
+            Don't have an account? Register here
+          </button>
+
+            <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-lg transition"
               disabled={loading}

@@ -21,7 +21,7 @@ function DonationContent() {
       const res = await fetch("/api/donation/makeDonation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: parseFloat(amount) }),
+        body: JSON.stringify({ name, email, amount: parseFloat(amount) }),
       });
   
       const data = await res.json();
@@ -30,7 +30,7 @@ function DonationContent() {
       if (!res.ok) throw new Error(data.error);
   
       // Redirect user to approve the transaction
-      window.open(data.approvalUrl, "_blank");
+      // window.open(data.approvalUrl, "_blank");
   
       // After approval, finalize the payment
       router.push(`/donation/confirmation?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&amount=${amount}&id=${data.donationId}`);
