@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-export default function DonationPage() {
+function DonationContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -39,7 +39,7 @@ export default function DonationPage() {
       alert(err.message);
     }
   };
-  
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center bg-gradient-to-b from-green-500 to-blue-600 text-white">
       <h1 className="text-3xl font-bold">Donate to Support Recovery</h1>
@@ -62,5 +62,13 @@ export default function DonationPage() {
         {loading ? "Processing..." : "Donate Now"}
       </button>
     </div>
+  );
+}
+
+export default function DonationPage() {
+  return (
+    <Suspense fallback={<div>Loading donation form...</div>}>
+      <DonationContent />
+    </Suspense>
   );
 }

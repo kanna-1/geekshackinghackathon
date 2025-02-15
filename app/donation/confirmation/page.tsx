@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-export default function ConfirmationPage() {
+function ConfirmationContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -32,9 +32,17 @@ export default function ConfirmationPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center bg-gradient-to-b from-blue-600 to-purple-700 text-white">
       <h1 className="text-3xl font-bold">Thank You, {name}!</h1>
-      <p className="mt-2">Your donation of <strong>${amount}</strong> has been successfully processed.</p>
-      <p className="mt-1 text-sm">A confirmation email has been sent to <strong>{email}</strong>.</p>
-      {donationId && <p className="mt-2 text-sm">Donation ID: <strong>{donationId}</strong></p>}
+      <p className="mt-2">
+        Your donation of <strong>${amount}</strong> has been successfully processed.
+      </p>
+      <p className="mt-1 text-sm">
+        A confirmation email has been sent to <strong>{email}</strong>.
+      </p>
+      {donationId && (
+        <p className="mt-2 text-sm">
+          Donation ID: <strong>{donationId}</strong>
+        </p>
+      )}
 
       <button
         onClick={handleTrackDonation}
@@ -61,5 +69,13 @@ export default function ConfirmationPage() {
         Back to Home
       </button>
     </div>
+  );
+}
+
+export default function ConfirmationPage() {
+  return (
+    <Suspense fallback={<div>Loading confirmation details...</div>}>
+      <ConfirmationContent />
+    </Suspense>
   );
 }
