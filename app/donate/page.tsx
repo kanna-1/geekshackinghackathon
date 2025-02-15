@@ -119,12 +119,12 @@ export default function Home() {
           </form>
           
           {/* Forgot Password Link */}
-          {/* <button
+          <button
             onClick={() => setStep("forgotPassword")}
             className="mt-4 text-sm text-gray-300 hover:underline"
           >
             Forgot Password?
-          </button> */}
+          </button>
 
           <button
             onClick={() => setStep("roleSelect")}
@@ -135,7 +135,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Forgot Password Form
+      {/*Forgot Password Form*/}
       {step === "forgotPassword" && (
         <div className="bg-white dark:bg-gray-900 shadow-lg p-6 rounded-lg w-full max-w-sm">
           <h2 className="text-xl font-semibold mb-4 text-center text-gray-800 dark:text-white">Reset Password</h2>
@@ -165,7 +165,7 @@ export default function Home() {
             ← Back to Login
           </button>
         </div>
-      )} */}
+      )}
 
       {/* Donor Signup Form */}
       {step === "donorSignup" && (
