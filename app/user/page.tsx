@@ -10,10 +10,10 @@ interface Milestone {
 }
 
 const initialMilestones: Milestone[] = [
-  { id: 1, title: "Stop pornhub", completed: false },
-  { id: 2, title: "Stop xham", completed: false },
-  { id: 3, title: "Stop masturbate", completed: false },
-  { id: 4, title: "Stop cum", completed: false },
+  { id: 1, title: "Stop xxx", completed: false },
+  { id: 2, title: "Stop xxx", completed: false },
+  { id: 3, title: "Stop xxx", completed: false },
+  { id: 4, title: "Stop xxx", completed: false },
 ];
 
 export default function MilestoneTracker() {
