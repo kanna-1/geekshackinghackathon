@@ -13,7 +13,7 @@ export default function LandingPage() {
         reduce screen time, and live a focused life.
       </p>
       <button
-        onClick={() => router.push("/login")}
+        onClick={() => router.push("/")}
         className="mt-6 bg-white text-blue-600 py-2 px-6 rounded-lg shadow-md hover:bg-gray-200"
       >
         Get Started

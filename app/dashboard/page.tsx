@@ -5,8 +5,11 @@ import { useRouter } from "next/navigation";
 export default function Dashboard() {
   const router = useRouter();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear token
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {}
+    localStorage.removeItem("token");
     router.push("/landing");
   };
 
