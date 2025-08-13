@@ -2,12 +2,25 @@ import { Worker, Queue, JobsOptions } from "bullmq";
 import IORedis from "ioredis";
 import { prisma } from "@/lib/db";
 
-const connection = new IORedis(process.env.REDIS_URL || "redis://localhost:6379", { maxRetriesPerRequest: null });
-
 export const queueName = "milestones";
-export const milestoneQueue = new Queue(queueName, { connection });
 
 export type ProcessMilestoneJob = { milestoneId: string };
+
+let connection: IORedis | null = null;
+function getRedisConnection(): IORedis {
+  if (!connection) {
+    connection = new IORedis(process.env.REDIS_URL || "redis://localhost:6379", { maxRetriesPerRequest: null });
+  }
+  return connection;
+}
+
+let milestoneQueueInstance: Queue<ProcessMilestoneJob> | null = null;
+function getMilestoneQueue(): Queue<ProcessMilestoneJob> {
+  if (!milestoneQueueInstance) {
+    milestoneQueueInstance = new Queue<ProcessMilestoneJob>(queueName, { connection: getRedisConnection() });
+  }
+  return milestoneQueueInstance;
+}
 
 async function processMilestone(job: { data: ProcessMilestoneJob }) {
   const { milestoneId } = job.data;
@@ -23,8 +36,10 @@ async function processMilestone(job: { data: ProcessMilestoneJob }) {
   return { ok: true };
 }
 
-new Worker<ProcessMilestoneJob>(queueName, processMilestone as any, { connection });
+export function startMilestoneWorker() {
+  return new Worker<ProcessMilestoneJob>(queueName, processMilestone as any, { connection: getRedisConnection() });
+}
 
 export async function enqueueProcessMilestone(milestoneId: string, opts?: JobsOptions) {
-  await milestoneQueue.add("processMilestone", { milestoneId }, opts);
+  await getMilestoneQueue().add("processMilestone", { milestoneId }, opts);
 } 
