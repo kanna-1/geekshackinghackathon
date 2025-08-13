@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport(process.env.SMTP_URL || { jsonTransport: true } as any);
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({

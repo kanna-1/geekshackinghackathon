@@ -2,7 +2,7 @@ import { Worker, Queue, JobsOptions } from "bullmq";
 import IORedis from "ioredis";
 import { prisma } from "@/lib/db";
 
-const connection = new IORedis(process.env.REDIS_URL || "redis://localhost:6379");
+const connection = new IORedis(process.env.REDIS_URL || "redis://localhost:6379", { maxRetriesPerRequest: null });
 
 export const queueName = "milestones";
 export const milestoneQueue = new Queue(queueName, { connection });
